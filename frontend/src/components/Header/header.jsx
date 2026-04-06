@@ -55,8 +55,8 @@ function Header() {
                     <div className="hidden md:flex flex-1 max-w-xl">
                         <div
                             className={`flex w-full rounded-full overflow-hidden border-2 transition-all duration-300 ${searchFocused
-                                    ? "border-sky-500 shadow-lg shadow-sky-500/20"
-                                    : "border-slate-200 shadow-sm"
+                                ? "border-sky-500 shadow-lg shadow-sky-500/20"
+                                : "border-slate-200 shadow-sm"
                                 }`}
                         >
                             <input
@@ -80,7 +80,7 @@ function Header() {
                     </div>
 
                     {/* Utility icons */}
-                    <div className="flex items-center sm:gap-2 sm:gap-4">
+                    <div className="flex items-center sm:gap-2">
                         {/* User / account */}
                         <a
                             href="#"
