@@ -1,17 +1,18 @@
 import { useState } from "react";
-
+import { Link } from "react-router-dom";
 function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [searchFocused, setSearchFocused] = useState(false);
 
     const navLinks = [
-        { label: "Ana Sayfa", href: "#" },
-        { label: "Avizeler", href: "#" },
-        { label: "Lambalar", href: "#" },
-        { label: "Spot & LED", href: "#" },
-        { label: "Dekoratif", href: "#" },
-        { label: "Aksesuarlar", href: "#" },
-        { label: "İletişim", href: "#" },
+        { label: "Ana Sayfa", href: "/" },
+        { label: "Avizeler", href: "/chandeliers" },
+        { label: "Lambalar", href: "/lamps" },
+        { label: "Spot & LED", href: "/spotlights-led" },
+        { label: "Dekoratif", href: "/decorative" },
+        { label: "Aksesuarlar", href: "/accessory" },
+        { label: "İletişim", href: "/contact" },
+        { label: "Admin", href: "/admin-mian" },
     ];
 
     return (
@@ -38,11 +39,9 @@ function Header() {
                 </div>
             </div>
 
-            {/* ── Main header area ── */}
             <div className="bg-white shadow-md relative z-20">
                 <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4 lg:gap-8">
 
-                    {/* Logo */}
                     <a href="#" className="flex-shrink-0 group">
                         <img
                             src="/images/Logo-removebg.png"
@@ -51,7 +50,6 @@ function Header() {
                         />
                     </a>
 
-                    {/* Search bar — desktop */}
                     <div className="hidden md:flex flex-1 max-w-xl">
                         <div
                             className={`flex w-full rounded-full overflow-hidden border-2 transition-all duration-300 ${searchFocused
@@ -70,7 +68,6 @@ function Header() {
                                 type="button"
                                 className="bg-gradient-to-r from-sky-500 to-cyan-400 hover:from-sky-600 hover:to-cyan-500 text-white px-6 font-semibold text-sm transition-all duration-300 flex items-center gap-1.5"
                             >
-                                {/* search icon */}
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                                 </svg>
@@ -79,7 +76,6 @@ function Header() {
                         </div>
                     </div>
 
-                    {/* Utility icons */}
                     <div className="flex items-center sm:gap-2">
                         {/* User / account */}
                         <a
@@ -174,14 +170,14 @@ function Header() {
                     <ul className="flex items-center justify-center gap-1">
                         {navLinks.map((link, i) => (
                             <li key={i}>
-                                <a
-                                    href={link.href}
+                                <Link
+                                    to={link.href}
                                     className="relative block px-5 py-3 text-sm font-medium text-white/90 hover:text-white tracking-wide transition-colors duration-200 group"
                                 >
                                     {link.label}
                                     {/* animated underline */}
                                     <span className="absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 w-0 bg-white rounded-full transition-all duration-300 group-hover:w-3/4" />
-                                </a>
+                                </Link>
                             </li>
                         ))}
                     </ul>
@@ -222,14 +218,14 @@ function Header() {
                     <ul className="py-2">
                         {navLinks.map((link, i) => (
                             <li key={i}>
-                                <a
-                                    href={link.href}
+                                <Link
+                                    to={link.href}
                                     className="flex items-center gap-3 px-5 py-3 text-slate-700 hover:bg-sky-50 hover:text-sky-600 transition-colors duration-200 font-medium text-sm"
                                     onClick={() => setMobileMenuOpen(false)}
                                 >
                                     <span className="h-1.5 w-1.5 rounded-full bg-sky-400" />
                                     {link.label}
-                                </a>
+                                </Link>
                             </li>
                         ))}
                     </ul>

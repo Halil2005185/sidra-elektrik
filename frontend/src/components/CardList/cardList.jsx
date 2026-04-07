@@ -1,5 +1,6 @@
 import { useState } from "react";
 import CardItem from "../CardItem/cardItem";
+import Pagination from "../Pagonation/pagination";
 
 function CardList() {
     const [activeFilter, setActiveFilter] = useState("Tümü");
@@ -124,11 +125,10 @@ function CardList() {
                         <button
                             key={category}
                             onClick={() => setActiveFilter(category)}
-                            className={`px-5 py-2 text-sm font-medium rounded-full transition-all duration-300 ${
-                                activeFilter === category
+                            className={`px-5 py-2 text-sm font-medium rounded-full transition-all duration-300 ${activeFilter === category
                                     ? "bg-gradient-to-r from-sky-500 to-cyan-400 text-white shadow-lg shadow-sky-500/25 scale-105"
                                     : "bg-white text-slate-600 hover:text-sky-600 hover:bg-sky-50 border border-slate-200 hover:border-sky-200"
-                            }`}
+                                }`}
                         >
                             {category}
                         </button>
@@ -169,6 +169,7 @@ function CardList() {
                     </button>
                 </div>
             </div>
+            <Pagination />
         </section>
     );
 }
