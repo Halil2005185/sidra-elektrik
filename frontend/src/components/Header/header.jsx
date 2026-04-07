@@ -12,7 +12,8 @@ function Header() {
         { label: "Dekoratif", href: "/decorative" },
         { label: "Aksesuarlar", href: "/accessory" },
         { label: "İletişim", href: "/contact" },
-        { label: "Admin", href: "/admin-mian" },
+        { label: "Admin", href: "/admin/admin-mian" },
+        { label: "Geliştirici", href: "/developer" },
     ];
 
     return (
@@ -91,7 +92,6 @@ function Header() {
                             </span>
                         </a>
 
-                        {/* Favorites */}
                         <a
                             href="#"
                             className="relative p-2 rounded-full hover:bg-sky-50 text-slate-600 hover:text-sky-600 transition-all duration-200 group"
@@ -108,7 +108,6 @@ function Header() {
                             </span>
                         </a>
 
-                        {/* Cart */}
                         <a
                             href="#"
                             className="relative p-2 rounded-full hover:bg-sky-50 text-slate-600 hover:text-sky-600 transition-all duration-200 group"
@@ -125,7 +124,6 @@ function Header() {
                             </span>
                         </a>
 
-                        {/* Mobile menu toggle */}
                         <button
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                             className="lg:hidden p-2 rounded-full hover:bg-sky-50 text-slate-600 hover:text-sky-600 transition-all duration-200"

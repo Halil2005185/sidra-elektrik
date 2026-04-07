@@ -9,6 +9,10 @@ import Home from "./pages/Home/home"
 import Lamp from "./pages/Lamp/lamp"
 import { Route, Routes } from "react-router-dom"
 import AdminMian from "./pages/Admin/AdminMian/adminMian"
+import AddProduct from "./pages/Admin/AddProduct/addProduct"
+import AllProduct from "./pages/Admin/AllProduct/allProduct"
+import Invoice from "./pages/Admin/Invoice/invoice,"
+import Developer from "./pages/Developer/developer"
 export default function App() {
   return (
     <div>
@@ -20,8 +24,12 @@ export default function App() {
         <Route path="/spotlights-led" element={<SpotlightsLed />} />
         <Route path="/decorative" element={<Decorative />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/developer" element={<Developer />} />
         <Route path="/accessory" element={<Accessory />} />
-        <Route path="/admin-mian" element={<AdminMian />} />
+        <Route path="/admin/admin-mian" element={<AdminMian />} />
+        <Route path="/admin/admin-addProduct" element={<AddProduct />} />
+        <Route path="/admin/admin-allProduct" element={<AllProduct />} />
+        <Route path="/admin/admin-invoice" element={<Invoice />} />
       </Routes>
       <Footer />
     </div>
