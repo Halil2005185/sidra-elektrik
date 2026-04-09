@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function CardItem({ product, index }) {
     const [isHovered, setIsHovered] = useState(false);
@@ -28,8 +29,8 @@ function CardItem({ product, index }) {
                         setIsFavorited(!isFavorited);
                     }}
                     className={`absolute top-3 right-3 p-2 rounded-full backdrop-blur-md transition-all duration-300 ${isFavorited
-                            ? "bg-rose-500 text-white shadow-lg shadow-rose-500/30"
-                            : "bg-white/80 text-slate-400 hover:bg-white hover:text-rose-500 shadow-sm"
+                        ? "bg-rose-500 text-white shadow-lg shadow-rose-500/30"
+                        : "bg-white/80 text-slate-400 hover:bg-white hover:text-rose-500 shadow-sm"
                         }`}
                 >
                     <svg
@@ -50,8 +51,8 @@ function CardItem({ product, index }) {
 
                 <div
                     className={`absolute inset-x-0 bottom-0 flex items-center justify-center gap-2 p-3 bg-gradient-to-t from-black/50 via-black/20 to-transparent transition-all duration-400 ${isHovered
-                            ? "opacity-100 translate-y-0"
-                            : "opacity-0 translate-y-4"
+                        ? "opacity-100 translate-y-0"
+                        : "opacity-0 translate-y-4"
                         }`}
                 >
                     <button className="flex items-center gap-1.5 px-4 py-2 bg-white/95 backdrop-blur-sm text-sky-600 text-xs font-semibold rounded-full hover:bg-sky-500 hover:text-white transition-all duration-300 shadow-lg">
@@ -121,7 +122,10 @@ function CardItem({ product, index }) {
                         </span>
                     )}
                 </div>
-
+                {/* @TODO : Add the Product real ID */}
+                <Link to={`/admin/admin-edit-product/1`}>
+                    <div className="my-2 rounded-md bg-gradient-to-r from-sky-500 to-cyan-400 text-white shadow-lg shadow-sky-500/25 w-fit px-4 py-1 cursor-pointer">Edit</div>
+                </Link>
             </div>
         </div>
     );

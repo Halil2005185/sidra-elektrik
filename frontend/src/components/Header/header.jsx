@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import ProfileImage from "/images/TonyStark.webp"
 function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [searchFocused, setSearchFocused] = useState(false);
+    const [user, setUser] = useState(
+        JSON.parse(localStorage.getItem("user"))
+    )
 
     const navLinks = [
         { label: "Ana Sayfa", href: "/" },
@@ -16,6 +20,21 @@ function Header() {
         { label: "Geliştirici", href: "/developer" },
     ];
 
+    useEffect(() => {
+        function handleStorage() {
+            setUser(JSON.parse(localStorage.getItem("user")))
+        }
+        window.addEventListener("storage", handleStorage)
+
+        return () =>
+            window.removeEventListener("storage", handleStorage)
+
+    }, [])
+    console.log(user);
+    function logOut() {
+        localStorage.clear()
+        window.dispatchEvent(new Event("storage"))
+    }
     return (
         <header className="w-full font-sans">
             {/* ── Top utility strip ── */}
@@ -78,20 +97,34 @@ function Header() {
                     </div>
 
                     <div className="flex items-center sm:gap-2">
-                        {/* User / account */}
-                        <a
-                            href="#"
-                            className="relative p-2 rounded-full hover:bg-sky-50 text-slate-600 hover:text-sky-600 transition-all duration-200 group"
-                            title="Hesabım"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-                            </svg>
-                            <span className="hidden lg:block absolute -bottom-5 left-1/2 -translate-x-1/2 text-[10px] text-slate-500 group-hover:text-sky-600 whitespace-nowrap font-medium">
-                                Hesabım
-                            </span>
-                        </a>
+                        {user ?
+                            <div className="relative group h-full flex items-center pb-3 ">
+                                <img
+                                    src={ProfileImage}
+                                    alt="profileImage"
+                                    className="w-[50px] h-[50px] rounded-full object-cover"
+                                />
 
+                                <div className="absolute top-full left-0  px-1 bg-white shadow-md rounded-xl border border-card-border w-[100px] hidden group-hover:flex flex-col z-50 py-2">
+                                    <p className="cursor-pointer">profile</p>
+                                    <p onClick={logOut} className="cursor-pointer">cikis yap</p>
+                                </div>
+                            </div>
+                            :
+                            <Link
+                                className="relative p-2 rounded-full hover:bg-sky-50 text-slate-600 hover:text-sky-600 transition-all duration-200 group"
+                                to={"/login"}
+                                title="Hesabım"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                                </svg>
+                                <span className="hidden lg:block absolute -bottom-5 left-1/2 -translate-x-1/2 text-[10px] text-slate-500 group-hover:text-sky-600 whitespace-nowrap font-medium">
+                                    Hesabım
+                                </span>
+                            </Link>
+
+                        }
                         <a
                             href="#"
                             className="relative p-2 rounded-full hover:bg-sky-50 text-slate-600 hover:text-sky-600 transition-all duration-200 group"
@@ -241,7 +274,7 @@ function Header() {
                     </div>
                 </div>
             </div>
-        </header>
+        </header >
     );
 }
 
