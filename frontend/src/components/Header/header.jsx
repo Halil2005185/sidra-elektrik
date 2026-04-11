@@ -7,7 +7,18 @@ function Header() {
     const [user, setUser] = useState(
         JSON.parse(localStorage.getItem("user"))
     )
+    const [adminToken, setAdminToken] = useState(
+        localStorage.getItem("adminToken")
+    )
 
+    useEffect(() => {
+        function handleStorage() {
+            setUser(JSON.parse(localStorage.getItem("user")))
+            setAdminToken(localStorage.getItem("adminToken")) // ✅
+        }
+        window.addEventListener("storage", handleStorage)
+        return () => window.removeEventListener("storage", handleStorage)
+    }, [])
     const navLinks = [
         { label: "Ana Sayfa", href: "/" },
         { label: "Avizeler", href: "/chandeliers" },
@@ -16,9 +27,10 @@ function Header() {
         { label: "Dekoratif", href: "/decorative" },
         { label: "Aksesuarlar", href: "/accessory" },
         { label: "İletişim", href: "/contact" },
-        { label: "Admin", href: "/admin/admin-mian" },
         { label: "Geliştirici", href: "/developer" },
-    ];
+        ...(adminToken ? [{ label: "Admin", href: "/admin/admin-mian" }] : []),
+    ]
+
 
     useEffect(() => {
         function handleStorage() {
@@ -30,7 +42,6 @@ function Header() {
             window.removeEventListener("storage", handleStorage)
 
     }, [])
-    console.log(user);
     function logOut() {
         localStorage.clear()
         window.dispatchEvent(new Event("storage"))
@@ -61,14 +72,13 @@ function Header() {
 
             <div className="bg-white shadow-md relative z-20">
                 <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4 lg:gap-8">
-
-                    <a href="#" className="flex-shrink-0 group">
+                    <Link to={"/"} className=" flex-shrink-0 group">
                         <img
                             src="/images/Logo-removebg.png"
                             alt="Sidra Elektrik Logo"
                             className="h-14 md:h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
                         />
-                    </a>
+                    </Link>
 
                     <div className="hidden md:flex flex-1 max-w-xl">
                         <div
@@ -125,11 +135,8 @@ function Header() {
                             </Link>
 
                         }
-                        <a
-                            href="#"
-                            className="relative p-2 rounded-full hover:bg-sky-50 text-slate-600 hover:text-sky-600 transition-all duration-200 group"
-                            title="Favorilerim"
-                        >
+                        <Link to={"/favori"} className="relative p-2 rounded-full hover:bg-sky-50 text-slate-600 hover:text-sky-600 transition-all duration-200 group"
+                            title="Favorilerim" >
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
                             </svg>
@@ -139,8 +146,8 @@ function Header() {
                             <span className="hidden lg:block absolute -bottom-5 left-1/2 -translate-x-1/2 text-[10px] text-slate-500 group-hover:text-sky-600 whitespace-nowrap font-medium">
                                 Favoriler
                             </span>
-                        </a>
 
+                        </Link>
                         <a
                             href="#"
                             className="relative p-2 rounded-full hover:bg-sky-50 text-slate-600 hover:text-sky-600 transition-all duration-200 group"

@@ -3,7 +3,28 @@ import { Link } from "react-router-dom";
 
 function CardItem({ product, index }) {
     const [isHovered, setIsHovered] = useState(false);
-    const [isFavorited, setIsFavorited] = useState(false);
+
+    // ✅ قرأ من localStorage عند التحميل
+    const [isFavorited, setIsFavorited] = useState(() => {
+        const favorites = JSON.parse(localStorage.getItem("favorites") || "[]")
+        return favorites.includes(product.id)
+    });
+
+    // ✅ حفظ في localStorage
+    const handleFavorite = (e) => {
+        e.stopPropagation()
+        const favorites = JSON.parse(localStorage.getItem("favorites") || "[]")
+
+        if (isFavorited) {
+            const updated = favorites.filter(id => id !== product.id)
+            localStorage.setItem("favorites", JSON.stringify(updated))
+        } else {
+            favorites.push(product.id)
+            localStorage.setItem("favorites", JSON.stringify(favorites))
+        }
+
+        setIsFavorited(!isFavorited)
+    }
 
     return (
         <div
@@ -14,20 +35,18 @@ function CardItem({ product, index }) {
         >
             <div className="relative overflow-hidden aspect-square bg-gradient-to-br from-slate-50 to-slate-100">
                 <img
-                    src={product.image}
+                    src={product.imageUrl}
                     alt={product.name}
                     className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                 />
 
                 <span className="absolute top-3 left-3 px-3 py-1 text-[10px] font-bold tracking-wider uppercase bg-gradient-to-r from-sky-500 to-cyan-400 text-white rounded-full shadow-lg shadow-sky-500/25">
-                    {product.category}
+                    {product.category?.name}
                 </span>
 
+                {/* ✅ زر المفضلة */}
                 <button
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        setIsFavorited(!isFavorited);
-                    }}
+                    onClick={handleFavorite}
                     className={`absolute top-3 right-3 p-2 rounded-full backdrop-blur-md transition-all duration-300 ${isFavorited
                         ? "bg-rose-500 text-white shadow-lg shadow-rose-500/30"
                         : "bg-white/80 text-slate-400 hover:bg-white hover:text-rose-500 shadow-sm"
@@ -99,7 +118,7 @@ function CardItem({ product, index }) {
 
             <div className="p-4 space-y-2">
                 <span className="text-[10px] font-mono tracking-widest text-slate-400 uppercase">
-                    {product.code}
+                    {product.productCode}
                 </span>
 
                 <h3 className="text-sm font-semibold text-slate-800 group-hover:text-sky-600 transition-colors duration-300 line-clamp-2 leading-snug">
@@ -116,14 +135,14 @@ function CardItem({ product, index }) {
                     <span className="text-lg font-bold bg-gradient-to-r from-sky-600 to-cyan-500 bg-clip-text text-transparent">
                         {product.price} ₺
                     </span>
-                    {product.costPrice && product.costPrice < product.price && (
+                    {product.cost && product.cost < product.price && (
                         <span className="text-xs text-slate-400 line-through mb-0.5">
                             {(product.price * 1.3).toFixed(0)} ₺
                         </span>
                     )}
                 </div>
-                {/* @TODO : Add the Product real ID */}
-                <Link to={`/admin/admin-edit-product/1`}>
+
+                <Link to={`/admin/admin-edit-product/${product.documentId}`}>
                     <div className="my-2 rounded-md bg-gradient-to-r from-sky-500 to-cyan-400 text-white shadow-lg shadow-sky-500/25 w-fit px-4 py-1 cursor-pointer">Edit</div>
                 </Link>
             </div>

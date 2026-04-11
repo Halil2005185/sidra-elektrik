@@ -11,7 +11,7 @@ function Accessory() {
                 breadcrumb="Aksesuarlar"
                 emoji="🔧"
             />
-            <CardList />
+            <CardList categorySlug="aksesuarlar" />
         </main>
     );
 }

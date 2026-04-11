@@ -16,6 +16,8 @@ import Developer from "./pages/Developer/developer"
 import EditProduct from "./pages/Admin/EditProduct/editProduct"
 import Login from "./pages/Login/login"
 import Register from "./pages/Register/register"
+import AdminLogin from "./pages/Admin/AdminLogin/dminLogin"
+import Favori from "./pages/Favori/favori"
 export default function App() {
   return (
     <div>
@@ -29,8 +31,10 @@ export default function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/developer" element={<Developer />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/register" element={<Register />} />
         <Route path="/accessory" element={<Accessory />} />
+        <Route path="/favori" element={<Favori />} />
         <Route path="/admin/admin-mian" element={<AdminMian />} />
         <Route path="/admin/admin-addProduct" element={<AddProduct />} />
         <Route path="/admin/admin-allProduct" element={<AllProduct />} />

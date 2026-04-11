@@ -11,7 +11,7 @@ function Lamp() {
                 breadcrumb="Lambalar"
                 emoji="💡"
             />
-            <CardList />
+            <CardList categorySlug="lambalar" />
         </main>
     );
 }

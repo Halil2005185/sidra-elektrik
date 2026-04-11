@@ -1,99 +1,36 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CardItem from "../CardItem/cardItem";
 import Pagination from "../Pagonation/pagination";
+import axios from "axios";
 
-function CardList() {
+function CardList({ categorySlug, currentPage }) {
     const [activeFilter, setActiveFilter] = useState("Tümü");
 
     const categories = ["Tümü", "Lambalar", "Avizeler", "Spot & LED", "Dekoratif"];
+    const [products, setProducts] = useState([])
 
-    const products = [
-        {
-            id: 1,
-            name: "Modern LED Tavan Lambası",
-            image: "https://placehold.co/400x400/0ea5e9/white?text=Lamba+1",
-            price: 450,
-            costPrice: 200,
-            category: "Lambalar",
-            code: "SE-001",
-            description: "Şık tasarım, enerji tasarruflu LED aydınlatma"
-        },
-        {
-            id: 2,
-            name: "Kristal Avize Premium",
-            image: "https://placehold.co/400x400/06b6d4/white?text=Avize+1",
-            price: 1250,
-            costPrice: 580,
-            category: "Avizeler",
-            code: "SE-002",
-            description: "Lüks kristal detaylı, 8 kollu avize"
-        },
-        {
-            id: 3,
-            name: "Dekoratif Masa Lambası",
-            image: "https://placehold.co/400x400/0284c7/white?text=Dekor+1",
-            price: 320,
-            costPrice: 150,
-            category: "Dekoratif",
-            code: "SE-003",
-            description: "Minimalist tasarım, dokunmatik kontrol"
-        },
-        {
-            id: 4,
-            name: "LED Spot Aydınlatma Set",
-            image: "https://placehold.co/400x400/0891b2/white?text=Spot+1",
-            price: 180,
-            costPrice: 80,
-            category: "Spot & LED",
-            code: "SE-004",
-            description: "3'lü set, ayarlanabilir açı, sıcak beyaz"
-        },
-        {
-            id: 5,
-            name: "Endüstriyel Sarkıt Lamba",
-            image: "https://placehold.co/400x400/0369a1/white?text=Sarkit+1",
-            price: 520,
-            costPrice: 240,
-            category: "Lambalar",
-            code: "SE-005",
-            description: "Retro endüstriyel stil, E27 duy"
-        },
-        {
-            id: 6,
-            name: "RGB LED Şerit Aydınlatma",
-            image: "https://placehold.co/400x400/22d3ee/white?text=LED+1",
-            price: 95,
-            costPrice: 40,
-            category: "Spot & LED",
-            code: "SE-006",
-            description: "5 metre, uzaktan kumandalı, 16 renk"
-        },
-        {
-            id: 7,
-            name: "Cam Küre Sarkıt Avize",
-            image: "https://placehold.co/400x400/0c4a6e/white?text=Avize+2",
-            price: 780,
-            costPrice: 360,
-            category: "Avizeler",
-            code: "SE-007",
-            description: "Cam küre detaylı, modern sarkıt avize"
-        },
-        {
-            id: 8,
-            name: "Duvar Aplik Lambası",
-            image: "https://placehold.co/400x400/38bdf8/white?text=Aplik+1",
-            price: 210,
-            costPrice: 90,
-            category: "Dekoratif",
-            code: "SE-008",
-            description: "İç ve dış mekan uyumlu, su geçirmez"
-        },
-    ];
+    useEffect(() => {
+        const url = categorySlug ? `${import.meta.env.VITE_API_URL}/api/products?populate=*&filters[category][slug][$eq]=${categorySlug}` : `${import.meta.env.VITE_API_URL}/api/products?populate=*`
+        console.log(url);
+
+        axios.get(url)
+            .then(res => {
+                setProducts(res.data.data)
+                console.log(products);
+
+                // setPageCount(res.data.meta.pagination.pageCount)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }, [categorySlug, currentPage, products])
+    console.log(products);
+
 
     const filteredProducts =
         activeFilter === "Tümü"
             ? products
-            : products.filter((p) => p.category === activeFilter);
+            : products.filter((p) => p.category?.name === activeFilter);
 
     return (
         <section className="py-16 bg-gradient-to-b from-slate-50 via-white to-slate-50 font-sans">
@@ -120,20 +57,22 @@ function CardList() {
                 </div>
 
                 {/* Filter tabs */}
-                <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
-                    {categories.map((category) => (
-                        <button
-                            key={category}
-                            onClick={() => setActiveFilter(category)}
-                            className={`px-5 py-2 text-sm font-medium rounded-full transition-all duration-300 ${activeFilter === category
+                {!categorySlug &&
+                    <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
+                        {categories.map((category) => (
+                            <button
+                                key={category}
+                                onClick={() => setActiveFilter(category)}
+                                className={`px-5 py-2 text-sm font-medium rounded-full transition-all duration-300 ${activeFilter === category
                                     ? "bg-gradient-to-r from-sky-500 to-cyan-400 text-white shadow-lg shadow-sky-500/25 scale-105"
                                     : "bg-white text-slate-600 hover:text-sky-600 hover:bg-sky-50 border border-slate-200 hover:border-sky-200"
-                                }`}
-                        >
-                            {category}
-                        </button>
-                    ))}
-                </div>
+                                    }`}
+                            >
+                                {category}
+                            </button>
+                        ))}
+                    </div>
+                }
 
                 {/* Product grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">

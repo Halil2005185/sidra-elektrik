@@ -17,7 +17,7 @@ function Register() {
     try {
       setError("")
       setLoagin(true)
-      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/admin/api/auth/register`,
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/admin/auth/register`,
         { username: name, email, password }
       )
       localStorage.setItem("token", res.data.jwt)
@@ -29,7 +29,7 @@ function Register() {
     } catch (err) {
       setError(err.response?.data?.error?.message || "Bir hata oluştu")
     } finally {
-      
+
       setLoagin(false)
     }
 

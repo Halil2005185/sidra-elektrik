@@ -11,7 +11,7 @@ function Chandelier() {
                 breadcrumb="Avizeler"
                 emoji="🕯️"
             />
-            <CardList />
+            <CardList categorySlug="name-bags" />
         </main>
     );
 }

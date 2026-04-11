@@ -67,7 +67,7 @@ function SpotlightsLed() {
                 </div>
             </section>
 
-            <CardList />
+            <CardList categorySlug="spot-and-led"/>
         </main>
     );
 }

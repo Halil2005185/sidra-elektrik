@@ -11,7 +11,7 @@ function Decorative() {
                 breadcrumb="Dekoratif"
                 emoji="✨"
             />
-            
+
             {/* Stil ve İlham Bölümü */}
             <section className="py-16 bg-white border-b border-slate-100">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -69,7 +69,7 @@ function Decorative() {
                 </div>
             </section>
 
-            <CardList />
+            <CardList categorySlug="dekoratif" />
         </main>
     );
 }
