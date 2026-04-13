@@ -7,8 +7,7 @@ function Header() {
     const [searchFocused, setSearchFocused] = useState(false);
     const [searchQuery, setSearchQuery] = useState("")
     const [fevoriNum, setFevoriNum] = useState(
-        JSON.parse(localStorage.getItem("favorites"))
-
+        JSON.parse(localStorage.getItem("favorites")) || []
     )
     const [user, setUser] = useState(
         JSON.parse(localStorage.getItem("user"))
@@ -213,7 +212,7 @@ function Header() {
                 <div className="md:hidden px-4 pb-3">
                     <div className="flex rounded-full overflow-hidden border-2 border-slate-200 shadow-sm focus-within:border-sky-500 focus-within:shadow-lg focus-within:shadow-sky-500/20 transition-all duration-300">
                         <form
-                        className="flex justify-between w-full"
+                            className="flex justify-between w-full"
                             onSubmit={(e) => {
                                 e.preventDefault()
                                 navigate(`/search?q=${searchQuery}`)
