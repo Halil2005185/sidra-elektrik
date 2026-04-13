@@ -1,5 +1,4 @@
-import React from 'react';
-import developerAvatar from '../../assets/developer_avatar.png';
+import developerAvatar from '/images/developer_avatar.png';
 
 function Developer() {
     const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
