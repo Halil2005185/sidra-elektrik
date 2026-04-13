@@ -3,14 +3,12 @@ import { Link } from "react-router-dom";
 
 function CardItem({ product, index }) {
     const [isHovered, setIsHovered] = useState(false);
-
-    // ✅ قرأ من localStorage عند التحميل
+    const token = localStorage.getItem("adminToken")
     const [isFavorited, setIsFavorited] = useState(() => {
         const favorites = JSON.parse(localStorage.getItem("favorites") || "[]")
-        return favorites.includes(product.id)
+        return favorites.includes(product?.id)
     });
 
-    // ✅ حفظ في localStorage
     const handleFavorite = (e) => {
         e.stopPropagation()
         const favorites = JSON.parse(localStorage.getItem("favorites") || "[]")
@@ -24,6 +22,8 @@ function CardItem({ product, index }) {
         }
 
         setIsFavorited(!isFavorited)
+        window.dispatchEvent(new Event("storage"))
+
     }
 
     return (
@@ -131,20 +131,21 @@ function CardItem({ product, index }) {
                     </p>
                 )}
 
-                <div className="flex items-end gap-2 pt-1">
+                <div className="flex justify-between items-end gap-2 px-1 pt-1">
                     <span className="text-lg font-bold bg-gradient-to-r from-sky-600 to-cyan-500 bg-clip-text text-transparent">
-                        {product.price} ₺
+                        <span>Fiyat :</span>  {product.price} ₺
                     </span>
-                    {product.cost && product.cost < product.price && (
-                        <span className="text-xs text-slate-400 line-through mb-0.5">
-                            {(product.price * 1.3).toFixed(0)} ₺
+                    {token && (
+                        <span className="text-lg font-bold bg-gradient-to-r from-sky-600 to-cyan-500 bg-clip-text text-transparent">
+                            <span>Maliyet :</span>   {product.cost} ₺
                         </span>
                     )}
                 </div>
-
-                <Link to={`/admin/admin-edit-product/${product.documentId}`}>
-                    <div className="my-2 rounded-md bg-gradient-to-r from-sky-500 to-cyan-400 text-white shadow-lg shadow-sky-500/25 w-fit px-4 py-1 cursor-pointer">Edit</div>
-                </Link>
+                {token &&
+                    <Link to={`/admin/admin-edit-product/${product.documentId}`}>
+                        <div className="my-2 rounded-md bg-gradient-to-r from-sky-500 to-cyan-400 text-white shadow-lg shadow-sky-500/25 w-fit px-4 py-1 cursor-pointer">Edit</div>
+                    </Link>
+                }
             </div>
         </div>
     );

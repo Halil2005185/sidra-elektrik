@@ -1,9 +1,15 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ProfileImage from "/images/TonyStark.webp"
 function Header() {
+    const navigate = useNavigate("")
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [searchFocused, setSearchFocused] = useState(false);
+    const [searchQuery, setSearchQuery] = useState("")
+    const [fevoriNum, setFevoriNum] = useState(
+        JSON.parse(localStorage.getItem("favorites"))
+
+    )
     const [user, setUser] = useState(
         JSON.parse(localStorage.getItem("user"))
     )
@@ -14,7 +20,8 @@ function Header() {
     useEffect(() => {
         function handleStorage() {
             setUser(JSON.parse(localStorage.getItem("user")))
-            setAdminToken(localStorage.getItem("adminToken")) // ✅
+            setAdminToken(localStorage.getItem("adminToken"))
+            setFevoriNum(JSON.parse(localStorage.getItem("favorites") || "[]"))
         }
         window.addEventListener("storage", handleStorage)
         return () => window.removeEventListener("storage", handleStorage)
@@ -46,25 +53,36 @@ function Header() {
         localStorage.clear()
         window.dispatchEvent(new Event("storage"))
     }
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+    const emailLink = isMobile
+        ? "mailto:ismailhalil073@gmail.com?subject=Hello&body=Hi%20Halil,"
+        : "https://mail.google.com/mail/?view=cm&fs=1&to=ismailhalil073@gmail.com&su=Hello&body=Hi%20Halil,";
     return (
+
         <header className="w-full font-sans">
             {/* ── Top utility strip ── */}
             <div className="bg-gradient-to-r from-sky-600 via-sky-500 to-cyan-400 text-white text-xs">
                 <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-8">
                     <p className="hidden sm:block tracking-wide">
-                        Ücretsiz kargo · Hızlı teslimat · Güvenli ödeme
+                        Hızlı teslimat · Güvenli ödeme
                     </p>
                     <div className="flex items-center gap-4">
-                        <a href="tel:+905001234567" className="hover:text-sky-100 transition-colors flex items-center gap-1">
+                        <a href="https://wa.me/905399879801"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="WhatsApp" className="hover:text-sky-100 transition-colors flex items-center gap-1">
                             {/* phone icon */}
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                             </svg>
-                            <span>0 500 123 45 67</span>
+                            <span>0539 987 98 01</span>
                         </a>
                         <span className="hidden sm:inline text-sky-200">|</span>
-                        <a href="mailto:info@sidraelektrik.com" className="hidden sm:block hover:text-sky-100 transition-colors">
-                            info@sidraelektrik.com
+                        <a href={emailLink}
+                            target={isMobile ? "_self" : "_blank"}
+                            rel="noopener noreferrer" className="hidden sm:block hover:text-sky-100 transition-colors">
+                            ismailhalil073@gmail.com
                         </a>
                     </div>
                 </div>
@@ -87,22 +105,31 @@ function Header() {
                                 : "border-slate-200 shadow-sm"
                                 }`}
                         >
-                            <input
-                                type="text"
-                                placeholder="Ürün, marka veya kategori ara..."
-                                onFocus={() => setSearchFocused(true)}
-                                onBlur={() => setSearchFocused(false)}
-                                className="flex-1 px-5 py-2.5 text-sm text-slate-700 placeholder-slate-400 outline-none bg-slate-50/60"
-                            />
-                            <button
-                                type="button"
-                                className="bg-gradient-to-r from-sky-500 to-cyan-400 hover:from-sky-600 hover:to-cyan-500 text-white px-6 font-semibold text-sm transition-all duration-300 flex items-center gap-1.5"
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                </svg>
-                                Ara
-                            </button>
+                            <form className="flex justify-between w-full" onSubmit={(e) => {
+                                e.preventDefault()
+                                navigate(`/search?q=${searchQuery}`)
+                                setSearchQuery("")
+                            }}>
+
+                                <input
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    type="text"
+                                    placeholder="Ürün, marka veya kategori ara..."
+                                    onFocus={() => setSearchFocused(true)}
+                                    onBlur={() => setSearchFocused(false)}
+                                    className="flex-1 px-5 py-2.5 text-sm text-slate-700 placeholder-slate-400 outline-none bg-slate-50/60"
+                                />
+                                <button
+                                    type="submit"
+                                    className="bg-gradient-to-r from-sky-500 to-cyan-400 hover:from-sky-600 hover:to-cyan-500 text-white px-6 font-semibold text-sm transition-all duration-300 flex items-center gap-1.5"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                    </svg>
+                                    Ara
+                                </button>
+                            </form>
                         </div>
                     </div>
 
@@ -141,7 +168,7 @@ function Header() {
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
                             </svg>
                             <span className="absolute -top-0.5 -right-0.5 h-4 w-4 bg-rose-500 text-white text-[10px] rounded-full flex items-center justify-center font-bold shadow-sm">
-                                2
+                                {fevoriNum.length}
                             </span>
                             <span className="hidden lg:block absolute -bottom-5 left-1/2 -translate-x-1/2 text-[10px] text-slate-500 group-hover:text-sky-600 whitespace-nowrap font-medium">
                                 Favoriler
@@ -185,19 +212,30 @@ function Header() {
                 {/* Search bar — mobile */}
                 <div className="md:hidden px-4 pb-3">
                     <div className="flex rounded-full overflow-hidden border-2 border-slate-200 shadow-sm focus-within:border-sky-500 focus-within:shadow-lg focus-within:shadow-sky-500/20 transition-all duration-300">
-                        <input
-                            type="text"
-                            placeholder="Ürün ara..."
-                            className="flex-1 px-4 py-2 text-sm text-slate-700 placeholder-slate-400 outline-none bg-slate-50/60"
-                        />
-                        <button
-                            type="button"
-                            className="bg-gradient-to-r from-sky-500 to-cyan-400 text-white px-4 transition-all duration-300"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                            </svg>
-                        </button>
+                        <form
+                        className="flex justify-between w-full"
+                            onSubmit={(e) => {
+                                e.preventDefault()
+                                navigate(`/search?q=${searchQuery}`)
+                                setSearchQuery("")
+                            }}>
+
+                            <input
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                type="text"
+                                placeholder="Ürün ara..."
+                                className="flex-1 px-4 py-2 text-sm text-slate-700 placeholder-slate-400 outline-none bg-slate-50/60"
+                            />
+                            <button
+                                type="submit"
+                                className="bg-gradient-to-r from-sky-500 to-cyan-400 text-white px-4 transition-all duration-300"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -270,13 +308,16 @@ function Header() {
                     {/* drawer footer */}
                     <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-slate-100 bg-slate-50/80">
                         <a
-                            href="tel:+905001234567"
+                            href="https://wa.me/905399879801"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="WhatsApp"
                             className="flex items-center gap-2 text-sm text-slate-500 hover:text-sky-600 transition-colors"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                             </svg>
-                            0 500 123 45 67
+                            0539 987 98 01
                         </a>
                     </div>
                 </div>

@@ -1,64 +1,59 @@
-import { useState } from "react";
+function Pagination({ currentPage, setCurrentPage, pageCount }) {
 
-function Pagination({ totalPages = 5 }) {
-    const [currentPage, setCurrentPage] = useState(1);
+    const getPages = () => {
+        if (pageCount <= 5) return Array.from({ length: pageCount }, (_, i) => i + 1)
 
-    const goTo = (page) => {
-        if (page >= 1 && page <= totalPages) setCurrentPage(page);
-    };
+        if (currentPage <= 3) return [1, 2, 3, 4, "...", pageCount]
+        if (currentPage >= pageCount - 2) return [1, "...", pageCount - 3, pageCount - 2, pageCount - 1, pageCount]
+        return [1, "...", currentPage - 1, currentPage, currentPage + 1, pageCount]
+    }
 
     return (
-        <div className="flex items-center justify-center gap-2 my-10 font-sans select-none">
-            {/* Prev */}
+        <div className="flex items-center justify-center sm:gap-2 my-10 font-sans select-none">
             <button
-                onClick={() => goTo(currentPage - 1)}
+                onClick={() => setCurrentPage(currentPage - 1)}
                 disabled={currentPage === 1}
-                className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
-                    currentPage === 1
-                        ? "text-slate-300 cursor-not-allowed bg-slate-50 border border-slate-100"
-                        : "text-sky-600 hover:bg-sky-50 border border-sky-200 hover:border-sky-400 hover:shadow-md hover:shadow-sky-100"
-                }`}
+                className={`flex items-center gap-1.5 px-3 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${currentPage === 1
+                    ? "text-slate-300 cursor-not-allowed bg-slate-50 border border-slate-100"
+                    : "text-sky-600 hover:bg-sky-50 border border-sky-200 hover:border-sky-400"}`}
             >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
                 </svg>
-                Önceki
+                <span className="hidden sm:block">Önceki</span> {/* ✅ مخفي على موبايل */}
             </button>
 
-            {/* Pages */}
             <div className="flex items-center gap-1">
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                    <button
-                        key={page}
-                        onClick={() => goTo(page)}
-                        className={`h-9 w-9 rounded-full text-sm font-bold transition-all duration-300 ${
-                            currentPage === page
+                {getPages().map((page, i) =>
+                    page === "..." ? (
+                        <span key={i} className="h-9 w-9 flex items-center justify-center text-slate-400">...</span>
+                    ) : (
+                        <button
+                            key={i}
+                            onClick={() => setCurrentPage(page)}
+                            className={`h-9 w-9 rounded-full text-sm font-bold transition-all duration-300 ${currentPage === page
                                 ? "bg-gradient-to-r from-sky-500 to-cyan-400 text-white shadow-lg shadow-sky-500/30 scale-110"
-                                : "text-slate-600 hover:bg-sky-50 hover:text-sky-600 border border-transparent hover:border-sky-200"
-                        }`}
-                    >
-                        {page}
-                    </button>
-                ))}
+                                : "text-slate-600 hover:bg-sky-50 hover:text-sky-600 border border-transparent hover:border-sky-200"}`}
+                        >
+                            {page}
+                        </button>
+                    )
+                )}
             </div>
-
-            {/* Next */}
             <button
-                onClick={() => goTo(currentPage + 1)}
-                disabled={currentPage === totalPages}
-                className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
-                    currentPage === totalPages
-                        ? "text-slate-300 cursor-not-allowed bg-slate-50 border border-slate-100"
-                        : "text-sky-600 hover:bg-sky-50 border border-sky-200 hover:border-sky-400 hover:shadow-md hover:shadow-sky-100"
-                }`}
+                onClick={() => setCurrentPage(currentPage + 1)}
+                disabled={currentPage === pageCount}
+                className={`flex items-center gap-1.5 px-3 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${currentPage === pageCount
+                    ? "text-slate-300 cursor-not-allowed bg-slate-50 border border-slate-100"
+                    : "text-sky-600 hover:bg-sky-50 border border-sky-200 hover:border-sky-400"}`}
             >
-                Sonraki
+                <span className="hidden sm:block">Sonraki</span> {/* ✅ مخفي على موبايل */}
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                 </svg>
             </button>
         </div>
-    );
+    )
 }
 
-export default Pagination;
+export default Pagination

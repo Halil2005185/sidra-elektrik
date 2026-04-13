@@ -18,6 +18,9 @@ import Login from "./pages/Login/login"
 import Register from "./pages/Register/register"
 import AdminLogin from "./pages/Admin/AdminLogin/dminLogin"
 import Favori from "./pages/Favori/favori"
+import Search from "./pages/Search/search"
+import NotFound from "./pages/NotFound/notFound"
+import ScrollTop from "./components/ScrollTop/scrollTop"
 export default function App() {
   return (
     <div>
@@ -35,13 +38,17 @@ export default function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/accessory" element={<Accessory />} />
         <Route path="/favori" element={<Favori />} />
+        <Route path="/search" element={<Search />} />
+
         <Route path="/admin/admin-mian" element={<AdminMian />} />
         <Route path="/admin/admin-addProduct" element={<AddProduct />} />
         <Route path="/admin/admin-allProduct" element={<AllProduct />} />
         <Route path="/admin/admin-invoice" element={<Invoice />} />
-        <Route path="/admin/admin-edit-product/:id" element={<EditProduct />} />
+        <Route path="/admin/admin-edit-product/:documentId" element={<EditProduct />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
+      <ScrollTop />
     </div>
   )
 }

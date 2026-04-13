@@ -57,7 +57,6 @@ router.post(
   },
 );
 
-
 //  products
 router.post("/products", verifyAdmin, async (req, res) => {
   const STRAPI_URL = process.env.STRAPI_URL;
@@ -110,7 +109,41 @@ router.post("/products", verifyAdmin, async (req, res) => {
     res.status(500).json({ error: err.response?.data || err.message });
   }
 });
+// products Edit
+router.put("/products/:documentId", verifyAdmin, async (req, res) => {
+  try {
+    const { documentId } = req.params;
+    const {
+      name,
+      productCode,
+      price,
+      cost,
+      imageUrl,
+      imagePublicId,
+      categories,
+    } = req.body.data;
 
+    const response = await axios.put(
+      `${process.env.STRAPI_URL}/api/products/${documentId}`,
+      {
+        data: {
+          name,
+          productCode,
+          price,
+          cost,
+          imageUrl,
+          imagePublicId,
+          category: categories ? { connect: [{ id: categories }] } : null,
+        },
+      },
+      { headers: { Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}` } },
+    );
+    res.json(response.data);
+  } catch (err) {
+    console.log(err.response?.data);
+    res.status(500).json({ error: err.response?.data || err.message });
+  }
+});
 // register
 router.post("/auth/register", async (req, res) => {
   try {

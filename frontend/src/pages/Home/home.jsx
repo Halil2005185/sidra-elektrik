@@ -1,5 +1,6 @@
 import CardList from "../../components/CardList/cardList";
 import { Link } from "react-router-dom";
+import ScrollTop from "../../components/ScrollTop/scrollTop";
 
 function Home() {
     const features = [
@@ -32,7 +33,8 @@ function Home() {
             desc: "Uzman ekibimiz her zaman yanınızda",
         },
     ];
-
+    const d = new Date()
+    let year = d.getFullYear();
     const categoryCards = [
         { label: "Avizeler", href: "/chandeliers", color: "from-sky-600 to-sky-800", emoji: "🕯️" },
         { label: "Lambalar", href: "/lamps", color: "from-cyan-500 to-cyan-700", emoji: "💡" },
@@ -48,7 +50,6 @@ function Home() {
             <section className="relative bg-gradient-to-br from-slate-900 via-sky-950 to-slate-900 overflow-hidden min-h-[520px] flex items-center">
                 {/* Background decorative circles */}
                 <div className="absolute inset-0 pointer-events-none">
-                    <div className="absolute -top-32 -right-32 h-[480px] w-[480px] rounded-full bg-sky-500/10 blur-3xl" />
                     <div className="absolute -bottom-24 -left-24 h-[360px] w-[360px] rounded-full bg-cyan-500/10 blur-3xl" />
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-sky-600/5 blur-3xl" />
                 </div>
@@ -68,7 +69,7 @@ function Home() {
                         <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-sky-500/15 border border-sky-500/20 rounded-full mb-6">
                             <span className="h-2 w-2 rounded-full bg-sky-400 animate-pulse" />
                             <span className="text-xs font-semibold text-sky-300 tracking-wider uppercase">
-                                Yeni Koleksiyon 2025
+                                Yeni Koleksiyon {year}
                             </span>
                         </div>
 
@@ -108,7 +109,7 @@ function Home() {
                             {[
                                 { value: "500+", label: "Ürün Çeşidi" },
                                 { value: "10K+", label: "Mutlu Müşteri" },
-                                { value: "15 yıl", label: "Deneyim" },
+                                { value: "25 yıl", label: "Deneyim" },
                             ].map(({ value, label }) => (
                                 <div key={label} className="text-center lg:text-left">
                                     <p className="text-2xl font-extrabold bg-gradient-to-r from-sky-400 to-cyan-300 bg-clip-text text-transparent">{value}</p>
@@ -177,6 +178,8 @@ function Home() {
 
             {/* ── Products ── */}
             <CardList />
+            <ScrollTop />
+
         </main>
     );
 }

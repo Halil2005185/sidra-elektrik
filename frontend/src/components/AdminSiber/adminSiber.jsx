@@ -46,7 +46,7 @@ function AdminSiber() {
     ];
 
     return (
-        <aside className="w-64 min-h-screen bg-gradient-to-b from-slate-900 to-slate-950 flex flex-col shadow-2xl flex-shrink-0">
+        <aside className="w-full md:w-64 h-auto md:min-h-screen bg-gradient-to-b from-slate-900 to-slate-950 flex flex-col shadow-2xl flex-shrink-0">
             <div className="p-5 border-b border-white/5">
                 <div className="flex items-center gap-3">
                     <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-sky-500 to-cyan-400 flex items-center justify-center shadow-lg shadow-sky-500/30">
