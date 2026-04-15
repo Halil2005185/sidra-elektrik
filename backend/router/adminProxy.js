@@ -110,9 +110,26 @@ router.post("/products", verifyAdmin, async (req, res) => {
   }
 });
 // products Edit
-router.put("/products/:documentIdproductId", verifyAdmin, async (req, res) => {
+router.put("/products/:documentId", verifyAdmin, async (req, res) => {
+  let newImagePublicId = null;
+  let oldImagePublicId = null;
+
   try {
     const { documentId } = req.params;
+
+    const oldProductRes = await axios.get(
+      `${process.env.STRAPI_URL}/api/products/${documentId}?populate=*`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
+        },
+      },
+    );
+
+    const oldProduct = oldProductRes.data?.data;
+    oldImagePublicId = oldProduct?.imagePublicId || null;
+    console.log(oldImagePublicId);
+
     const {
       name,
       productCode,
@@ -122,6 +139,8 @@ router.put("/products/:documentIdproductId", verifyAdmin, async (req, res) => {
       imagePublicId,
       categories,
     } = req.body.data;
+
+    newImagePublicId = imagePublicId || null;
 
     const response = await axios.put(
       `${process.env.STRAPI_URL}/api/products/${documentId}`,
@@ -136,11 +155,28 @@ router.put("/products/:documentIdproductId", verifyAdmin, async (req, res) => {
           category: categories ? { connect: [{ id: categories }] } : null,
         },
       },
-      { headers: { Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}` } },
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
+        },
+      },
     );
+
+    if (oldImagePublicId) {
+      await cloudinary.uploader.destroy(oldImagePublicId);
+    }
+
     res.json(response.data);
   } catch (err) {
-    console.log(err.response?.data);
+    if (newImagePublicId) {
+      try {
+        await cloudinary.uploader.destroy(newImagePublicId);
+      } catch (cloudErr) {
+        console.log("Cloudinary cleanup error:", cloudErr.message);
+      }
+    }
+
+    console.log("Main error:", err.response?.data || err.message);
     res.status(500).json({ error: err.response?.data || err.message });
   }
 });

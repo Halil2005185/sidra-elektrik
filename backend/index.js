@@ -3,9 +3,13 @@ dotenv.config();
 import express from "express";
 import cors from "cors";
 import adminProx from "./router/adminProxy.js";
+import rateLimit from "express-rate-limit";
+import helmet from "helmet";
 const app = express();
 
 app.use(express.json());
+app.use(helmet());
+
 app.use(
   cors({
     origin: [
@@ -16,6 +20,12 @@ app.use(
     credentials: true,
   }),
 );
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+});
+app.use(limiter);
 app.use("/api/admin", adminProx);
 
 const PORT = process.env.PORT || 5000;

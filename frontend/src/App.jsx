@@ -21,6 +21,7 @@ import Favori from "./pages/Favori/favori"
 import Search from "./pages/Search/search"
 import NotFound from "./pages/NotFound/notFound"
 import ScrollTop from "./components/ScrollTop/scrollTop"
+import ProtectedRoute from "./components/ProtectedRoute/protectedRoute"
 export default function App() {
   return (
     <div>
@@ -39,13 +40,44 @@ export default function App() {
         <Route path="/accessory" element={<Accessory />} />
         <Route path="/favori" element={<Favori />} />
         <Route path="/search" element={<Search />} />
+        
+        
+        
+        
+        
+        <Route path="/admin">
+          <Route index path="admin-mian" element={
+            <ProtectedRoute>
+              <AdminMian />
+            </ProtectedRoute>
+          } />
+          <Route path="admin-addProduct" element={
+            <ProtectedRoute>
+              <AddProduct />
+            </ProtectedRoute>
+          } />
+          <Route path="admin-allProduct" element={
+            <ProtectedRoute>
+              <AllProduct />
+            </ProtectedRoute>
+          } />
+          <Route path="admin-invoice" element={
+            <ProtectedRoute>
+              <Invoice />
+            </ProtectedRoute>
+          } />
+          <Route path="admin-edit-product/:documentId" element={
+            <ProtectedRoute>
+              <EditProduct />
+            </ProtectedRoute>
+          } />
 
-        <Route path="/admin/admin-mian" element={<AdminMian />} />
-        <Route path="/admin/admin-addProduct" element={<AddProduct />} />
-        <Route path="/admin/admin-allProduct" element={<AllProduct />} />
-        <Route path="/admin/admin-invoice" element={<Invoice />} />
-        <Route path="/admin/admin-edit-product/:documentId" element={<EditProduct />} />
+        </Route>
+
+
         <Route path="*" element={<NotFound />} />
+
+
       </Routes>
       <Footer />
       <ScrollTop />
