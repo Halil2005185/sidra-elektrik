@@ -15,7 +15,9 @@ function CardList({ categorySlug }) {
         setCurrentPage(page)
         window.scrollTo({ top: 0, behavior: "smooth" })
     }
-
+    function handleDelete(id) {
+        setProducts(prev => prev.filter(p => p.id !== id))
+    }
 
     useEffect(() => {
         async function fetchProducts() {
@@ -113,6 +115,7 @@ function CardList({ categorySlug }) {
                             key={product.id}
                             product={product}
                             index={index}
+                            onDelete={handleDelete}
                         />
                     ))}
                 </div>

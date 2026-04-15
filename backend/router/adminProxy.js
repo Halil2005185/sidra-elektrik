@@ -110,7 +110,7 @@ router.post("/products", verifyAdmin, async (req, res) => {
   }
 });
 // products Edit
-router.put("/products/:documentId", verifyAdmin, async (req, res) => {
+router.put("/products/:documentIdproductId", verifyAdmin, async (req, res) => {
   try {
     const { documentId } = req.params;
     const {
@@ -198,6 +198,36 @@ router.post("/login", async (req, res) => {
   } catch (err) {
     console.log("strapi error:", err.response?.data); // ✅
     res.status(401).json({ error: "E-posta veya şifre hatalı" });
+  }
+});
+//Delete
+router.delete("/products/:documentId", async (req, res) => {
+  const STRAPI_URL = process.env.STRAPI_URL;
+  const STRAPI_API_TOKEN = process.env.STRAPI_API_TOKEN;
+  cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+  });
+
+  try {
+    const product = await axios.get(
+      `${STRAPI_URL}/api/products/${req.params.documentId}?populate=*`,
+      { headers: { Authorization: `Bearer ${STRAPI_API_TOKEN}` } },
+    );
+
+    const publicId = product.data?.data?.imagePublicId;
+    if (publicId) {
+      await cloudinary.uploader.destroy(publicId);
+    }
+    const response = await axios.delete(
+      `${STRAPI_URL}/api/products/${req.params.documentId}`,
+      { headers: { Authorization: `Bearer ${STRAPI_API_TOKEN}` } },
+    );
+    res.json(response.data);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.response?.data || err.message });
   }
 });
 export default router;
