@@ -15,6 +15,7 @@ function EditProduct() {
     const [categories, setCategories] = useState([])
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState("")
+    const [currentImagePublicId, setCurrentImagePublicId] = useState("")
     const [success, setSuccess] = useState(false)
     const fileInputRef = useRef(null)
 
@@ -31,6 +32,7 @@ function EditProduct() {
                 setProductCost(p.cost || 0)
                 setCurrentImage(p.imageUrl || "")
                 setSelectedCategory(p.category?.id || "Eror")
+                setCurrentImagePublicId(p.imagePublicId || "")
             })
             .catch(err => console.log(err))
     }, [documentId])
@@ -53,9 +55,8 @@ function EditProduct() {
             const headers = { Authorization: `Bearer ${token}` }
 
             let imageUrl = currentImage
-            let imagePublicId = null
+            let imagePublicId = currentImagePublicId
 
-            // لو الأدمن اختار صورة جديدة
             if (image) {
                 const formData = new FormData()
                 formData.append("file", image)
@@ -87,6 +88,7 @@ function EditProduct() {
 
     console.log(name);
     console.log(selectedCategory);
+    console.log(image);
 
     return (
         <section className="flex flex-col md:flex-row min-h-screen bg-slate-50 font-sans">

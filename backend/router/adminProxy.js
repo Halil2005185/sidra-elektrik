@@ -162,7 +162,7 @@ router.put("/products/:documentId", verifyAdmin, async (req, res) => {
       },
     );
 
-    if (oldImagePublicId) {
+    if (oldImagePublicId && oldImagePublicId !== newImagePublicId) {
       await cloudinary.uploader.destroy(oldImagePublicId);
     }
 
@@ -263,6 +263,107 @@ router.delete("/products/:documentId", async (req, res) => {
     res.json(response.data);
   } catch (err) {
     console.log(err);
+    res.status(500).json({ error: err.response?.data || err.message });
+  }
+});
+
+// Create Order (grouped — all cart items in one order)
+router.post("/orders", async (req, res) => {
+  const STRAPI_URL = process.env.STRAPI_URL;
+  const STRAPI_API_TOKEN = process.env.STRAPI_API_TOKEN;
+
+  try {
+    const authHeader = req.headers.authorization;
+    if (!authHeader) {
+      return res.status(401).json({ error: "No token provided" });
+    }
+
+    const userRes = await axios.get(`${STRAPI_URL}/api/users/me`, {
+      headers: { Authorization: authHeader },
+    });
+    const userId = userRes.data.id;
+
+    const { groupId, total, itemsList } = req.body.data;
+
+    const response = await axios.post(
+      `${STRAPI_URL}/api/orders`,
+      {
+        data: {
+          groupId,
+          total,
+          itemsList,
+          users_permissions_user: userId,
+        },
+      },
+      {
+        headers: { Authorization: `Bearer ${STRAPI_API_TOKEN}` },
+      },
+    );
+
+    res.json(response.data);
+  } catch (err) {
+    console.log("❌ ORDER ERROR:", err.response?.data || err.message);
+    res.status(500).json({ error: err.response?.data || err.message });
+  }
+});
+router.get("/orders", async (req, res) => {
+  const STRAPI_URL = process.env.STRAPI_URL;
+  const STRAPI_API_TOKEN = process.env.STRAPI_API_TOKEN;
+
+  try {
+    const authHeader = req.headers.authorization;
+    if (!authHeader) {
+      return res.status(401).json({ error: "No token provided" });
+    }
+
+    const userRes = await axios.get(`${STRAPI_URL}/api/users/me`, {
+      headers: { Authorization: authHeader },
+    });
+    const userId = userRes.data.id;
+
+    const response = await axios.get(
+      `${STRAPI_URL}/api/orders?filters[users_permissions_user][id][$eq]=${userId}&populate=*`,
+      { headers: { Authorization: `Bearer ${STRAPI_API_TOKEN}` } },
+    );
+
+    res.json(response.data);
+  } catch (err) {
+    console.log("❌ GET ORDERS ERROR:", err.response?.data || err.message);
+    res.status(500).json({ error: err.response?.data || err.message });
+  }
+});
+
+// Delete Order
+router.delete("/orders/:documentId", async (req, res) => {
+  const STRAPI_URL = process.env.STRAPI_URL;
+  const STRAPI_API_TOKEN = process.env.STRAPI_API_TOKEN;
+
+  try {
+    await axios.delete(`${STRAPI_URL}/api/orders/${req.params.documentId}`, {
+      headers: { Authorization: `Bearer ${STRAPI_API_TOKEN}` },
+    });
+    res.json({ success: true });
+  } catch (err) {
+    console.log("❌ DELETE ORDER ERROR:", err.response?.data || err.message);
+    res.status(500).json({ error: err.response?.data || err.message });
+  }
+});
+
+// Update Order quantity
+router.put("/orders/:documentId", async (req, res) => {
+  const STRAPI_URL = process.env.STRAPI_URL;
+  const STRAPI_API_TOKEN = process.env.STRAPI_API_TOKEN;
+
+  try {
+    const { quantity, total } = req.body.data;
+    const response = await axios.put(
+      `${STRAPI_URL}/api/orders/${req.params.documentId}`,
+      { data: { quantity, total } },
+      { headers: { Authorization: `Bearer ${STRAPI_API_TOKEN}` } },
+    );
+    res.json(response.data);
+  } catch (err) {
+    console.log("❌ UPDATE ORDER ERROR:", err.response?.data || err.message);
     res.status(500).json({ error: err.response?.data || err.message });
   }
 });

@@ -20,8 +20,9 @@ function Register() {
       const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/admin/auth/register`,
         { username: name, email, password }
       )
-      localStorage.setItem("token", res.data.jwt)
+      localStorage.setItem("usertoken", res.data.jwt)
       localStorage.setItem("user", JSON.stringify(res.data.user))
+
       window.dispatchEvent(new Event("storage"))
       navigate("/")
 

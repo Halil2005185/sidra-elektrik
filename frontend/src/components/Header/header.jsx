@@ -138,12 +138,23 @@ function Header() {
                                 <img
                                     src={ProfileImage}
                                     alt="profileImage"
-                                    className="w-[50px] h-[50px] rounded-full object-cover"
+                                    className="w-[50px] h-[50px] rounded-full object-cover ring-2 ring-sky-200 hover:ring-sky-400 transition-all duration-300 cursor-pointer"
                                 />
 
-                                <div className="absolute top-full left-0  px-1 bg-white shadow-md rounded-xl border border-card-border w-[100px] hidden group-hover:flex flex-col z-50 py-2">
-                                    <p className="cursor-pointer">profile</p>
-                                    <p onClick={logOut} className="cursor-pointer">cikis yap</p>
+                                <div className="absolute top-full right-0 px-1 bg-white shadow-xl rounded-xl border border-slate-100 w-[160px] hidden group-hover:flex flex-col z-50 py-2 overflow-hidden">
+                                    <Link to="/profile" className="flex items-center gap-2 px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-sky-50 hover:text-sky-600 transition-all duration-200 rounded-lg mx-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                                        </svg>
+                                        Profil
+                                    </Link>
+                                    <div className="h-px bg-slate-100 mx-3 my-1" />
+                                    <button onClick={logOut} className="flex items-center gap-2 px-3 py-2.5 text-sm font-medium text-rose-500 hover:bg-rose-50 transition-all duration-200 rounded-lg mx-1 w-full text-left cursor-pointer">
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
+                                        </svg>
+                                        Çıkış Yap
+                                    </button>
                                 </div>
                             </div>
                             :
@@ -174,11 +185,11 @@ function Header() {
                             </span>
 
                         </Link>
-                        <a
-                            href="#"
-                            className="relative p-2 rounded-full hover:bg-sky-50 text-slate-600 hover:text-sky-600 transition-all duration-200 group"
-                            title="Sepetim"
-                        >
+
+                        <Link className="relative p-2 rounded-full hover:bg-sky-50 text-slate-600 hover:text-sky-600 transition-all duration-200 group"
+                            title="Sepetim" to={"/myOrders"}>
+
+
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121 0 2.09-.773 2.34-1.868l1.96-8.595A1.125 1.125 0 0020.023 3H5.625l-.632 2.521M7.5 14.25l-1.044-4.771" />
                             </svg>
@@ -188,7 +199,7 @@ function Header() {
                             <span className="hidden lg:block absolute -bottom-5 left-1/2 -translate-x-1/2 text-[10px] text-slate-500 group-hover:text-sky-600 whitespace-nowrap font-medium">
                                 Sepetim
                             </span>
-                        </a>
+                        </Link>
 
                         <button
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}

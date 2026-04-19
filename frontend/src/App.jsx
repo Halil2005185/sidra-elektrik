@@ -22,6 +22,8 @@ import Search from "./pages/Search/search"
 import NotFound from "./pages/NotFound/notFound"
 import ScrollTop from "./components/ScrollTop/scrollTop"
 import ProtectedRoute from "./components/ProtectedRoute/protectedRoute"
+import MyOrders from "./pages/MyOrders/myOrders"
+import Profile from "./pages/Profile/profile"
 export default function App() {
   return (
     <div>
@@ -34,17 +36,19 @@ export default function App() {
         <Route path="/decorative" element={<Decorative />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/developer" element={<Developer />} />
+        <Route path="/myOrders" element={<MyOrders />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/login" element={<Login />} />
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/register" element={<Register />} />
         <Route path="/accessory" element={<Accessory />} />
         <Route path="/favori" element={<Favori />} />
         <Route path="/search" element={<Search />} />
-        
-        
-        
-        
-        
+
+
+
+
+
         <Route path="/admin">
           <Route index path="admin-mian" element={
             <ProtectedRoute>

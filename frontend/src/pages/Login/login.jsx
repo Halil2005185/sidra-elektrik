@@ -15,8 +15,9 @@ function Login() {
       setEmail("")
       e.preventDefault()
       const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/admin/auth/login`, { email, password })
-      localStorage.setItem("token", res.data.jwt)
+      localStorage.setItem("usertoken", res.data.jwt)
       localStorage.setItem("user", JSON.stringify(res.data.user))
+
 
       window.dispatchEvent(new Event("storage"))
 
