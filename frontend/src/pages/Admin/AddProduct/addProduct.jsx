@@ -77,7 +77,7 @@ function AddProduct() {
     }
 
     function handleImageChange(e) {
-        setImage(e.target.files[0]) // ✅ ملف واحد فقط
+        setImage(e.target.files[0])
     }
 
     function handleCategoryChange(id) {
@@ -94,98 +94,61 @@ function AddProduct() {
     }, []);
 
     return (
-        <section className="flex flex-col md:flex-row min-h-screen bg-slate-50 font-sans">
+        <section className="flex flex-col md:flex-row min-h-screen bg-[#FFFBF5] font-sans">
             <AdminSiber />
             <div className="flex-1 p-6 lg:p-10 overflow-y-auto">
                 <div className="mb-8">
-                    <h1 className="text-3xl font-bold text-slate-800">Yeni Ürün Ekle</h1>
-                    <p className="text-slate-500 mt-2">Mağazanıza yeni bir ürün tanımlayın.</p>
+                    <h1 className="text-3xl font-bold text-[#2D2418]">Yeni Ürün Ekle</h1>
+                    <p className="text-[#8C7B6B] mt-2">Mağazanıza yeni bir ürün tanımlayın.</p>
                 </div>
 
-                <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 max-w-3xl">
+                <div className="bg-white rounded-2xl shadow-sm border border-[#EDE4D6] p-8 max-w-3xl">
                     <form onSubmit={handleFormSubmit} className="space-y-6">
-
-                        {/* Error Message */}
                         {error && (
-                            <div className="px-4 py-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm">
+                            <div className="px-4 py-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm font-medium">
                                 {error}
                             </div>
                         )}
-
-                        {/* Success Message */}
                         {success && (
-                            <div className="px-4 py-3 bg-green-50 border border-green-200 rounded-xl text-green-600 text-sm">
+                            <div className="px-4 py-3 bg-[#E8D5A3]/20 border border-[#C49A3C]/30 rounded-xl text-[#3B2F1E] text-sm font-medium">
                                 Ürün başarıyla eklendi! ✅
                             </div>
                         )}
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            {/* Product Name */}
                             <div className="space-y-2">
-                                <label className="text-sm font-semibold text-slate-700">Ürün Adı</label>
-                                <input
-                                    value={name}
-                                    onChange={(e) => setName(e.target.value)}
-                                    type="text"
-                                    placeholder="Örn: Modern LED Avize"
-                                    required
-                                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500/50 focus:border-sky-500 transition-colors"
-                                />
+                                <label className="text-sm font-bold text-[#3B2F1E]">Ürün Adı</label>
+                                <input value={name} onChange={(e) => setName(e.target.value)} type="text" placeholder="Örn: Modern LED Avize" required
+                                    className="w-full px-4 py-3 bg-[#FFFBF5] border border-[#EDE4D6] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C49A3C]/30 focus:border-[#C49A3C] transition-colors text-[#2D2418] placeholder-[#B8A88A]" />
                             </div>
 
-                            {/* Product Code */}
                             <div className="space-y-2">
-                                <label className="text-sm font-semibold text-slate-700">Ürün Kodu</label>
-                                <input
-                                    value={productCode}
-                                    onChange={(e) => setProductCode(e.target.value)}
-                                    type="text"
-                                    placeholder="SE-001"
-                                    required
-                                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500/50 focus:border-sky-500 transition-colors"
-                                />
+                                <label className="text-sm font-bold text-[#3B2F1E]">Ürün Kodu</label>
+                                <input value={productCode} onChange={(e) => setProductCode(e.target.value)} type="text" placeholder="SE-001" required
+                                    className="w-full px-4 py-3 bg-[#FFFBF5] border border-[#EDE4D6] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C49A3C]/30 focus:border-[#C49A3C] transition-colors text-[#2D2418] placeholder-[#B8A88A]" />
                             </div>
 
-                            {/* Price */}
                             <div className="space-y-2">
-                                <label className="text-sm font-semibold text-slate-700">Satış Fiyatı (₺)</label>
-                                <input
-                                    value={productPrice}
-                                    onChange={(e) => setProductPrice(e.target.value)}
-                                    type="number"
-                                    placeholder="0.00"
-                                    required
-                                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500/50 focus:border-sky-500 transition-colors"
-                                />
+                                <label className="text-sm font-bold text-[#3B2F1E]">Satış Fiyatı (₺)</label>
+                                <input value={productPrice} onChange={(e) => setProductPrice(e.target.value)} type="number" placeholder="0.00" required
+                                    className="w-full px-4 py-3 bg-[#FFFBF5] border border-[#EDE4D6] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C49A3C]/30 focus:border-[#C49A3C] transition-colors text-[#2D2418] placeholder-[#B8A88A]" />
                             </div>
 
-                            {/* Cost Price */}
                             <div className="space-y-2">
-                                <label className="text-sm font-semibold text-slate-700">Geliş Fiyatı (₺)</label>
-                                <input
-                                    value={productCost}
-                                    onChange={(e) => setProductCost(e.target.value)}
-                                    type="number"
-                                    placeholder="0.00"
-                                    required
-                                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500/50 focus:border-sky-500 transition-colors"
-                                />
+                                <label className="text-sm font-bold text-[#3B2F1E]">Geliş Fiyatı (₺)</label>
+                                <input value={productCost} onChange={(e) => setProductCost(e.target.value)} type="number" placeholder="0.00" required
+                                    className="w-full px-4 py-3 bg-[#FFFBF5] border border-[#EDE4D6] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C49A3C]/30 focus:border-[#C49A3C] transition-colors text-[#2D2418] placeholder-[#B8A88A]" />
                             </div>
                         </div>
 
                         {/* Category */}
-                        <div className="space-y-3 pt-4 border-t border-slate-100">
-                            <label className="text-sm font-semibold text-slate-700 block">Kategori</label>
+                        <div className="space-y-3 pt-4 border-t border-[#EDE4D6]">
+                            <label className="text-sm font-bold text-[#3B2F1E] block">Kategori</label>
                             <div className="flex flex-wrap gap-3">
                                 {categories.map((category) => (
                                     <label key={category.id} className="cursor-pointer">
-                                        <input
-                                            type="radio"
-                                            name="category"
-                                            className="peer sr-only"
-                                            onChange={() => handleCategoryChange(category.id)}
-                                        />
-                                        <div className="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm font-medium text-slate-600 peer-checked:bg-sky-50 peer-checked:text-sky-600 peer-checked:border-sky-500 transition-colors">
+                                        <input type="radio" name="category" className="peer sr-only" onChange={() => handleCategoryChange(category.id)} />
+                                        <div className="px-4 py-2 bg-[#FFFBF5] border border-[#EDE4D6] rounded-lg text-sm font-bold text-[#8C7B6B] peer-checked:bg-[#C49A3C]/10 peer-checked:text-[#C49A3C] peer-checked:border-[#C49A3C] transition-colors">
                                             {category?.name}
                                         </div>
                                     </label>
@@ -194,47 +157,30 @@ function AddProduct() {
                         </div>
 
                         {/* File Upload */}
-                        <div className="space-y-2 pt-4 border-t border-slate-100">
-                            <label className="text-sm font-semibold text-slate-700">Ürün Fotoğrafı</label>
-                            <input
-                                ref={fileInputRef}
-                                type="file"
-                                accept="image/*"
-                                onChange={handleImageChange}
-                                className="hidden"
-                            />
-                            <div
-                                onClick={() => fileInputRef.current?.click()}
-                                className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-slate-300 border-dashed rounded-xl hover:border-sky-400 hover:bg-sky-50/50 transition-colors cursor-pointer"
-                            >
+                        <div className="space-y-2 pt-4 border-t border-[#EDE4D6]">
+                            <label className="text-sm font-bold text-[#3B2F1E]">Ürün Fotoğrafı</label>
+                            <input ref={fileInputRef} type="file" accept="image/*" onChange={handleImageChange} className="hidden" />
+                            <div onClick={() => fileInputRef.current?.click()}
+                                className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-[#EDE4D6] border-dashed rounded-xl hover:border-[#C49A3C] hover:bg-[#FFFBF5] transition-colors cursor-pointer" >
                                 <div className="space-y-1 text-center">
-                                    <svg className="mx-auto h-12 w-12 text-slate-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                                    <svg className="mx-auto h-12 w-12 text-[#B8A88A]" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
                                         <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
                                     </svg>
-                                    <div className="flex text-sm text-slate-600 justify-center">
-                                        <span className="relative cursor-pointer bg-white rounded-md font-medium text-sky-600 hover:text-sky-500">
+                                    <div className="flex text-sm text-[#8C7B6B] justify-center">
+                                        <span className="relative cursor-pointer bg-transparent rounded-md font-bold text-[#C49A3C] hover:text-[#D4A84B]">
                                             Dosya Yükle
                                         </span>
                                         <p className="pl-1">veya sürükle bırak</p>
                                     </div>
-                                    <p className="text-xs text-slate-500">PNG, JPG, GIF max 5MB</p>
-
-                                    {/* ✅ اسم الصورة بعد الاختيار */}
-                                    {image && (
-                                        <p className="text-sm text-sky-600 mt-2 font-medium">
-                                            {image.name}
-                                        </p>
-                                    )}
+                                    <p className="text-xs text-[#B8A88A]">PNG, JPG, GIF max 5MB</p>
+                                    {image && <p className="text-sm text-[#C49A3C] mt-2 font-bold">{image.name}</p>}
                                 </div>
                             </div>
                         </div>
 
                         <div className="pt-6">
-                            <button
-                                type="submit"
-                                disabled={loading}
-                                className="w-full sm:w-auto px-8 py-3 bg-gradient-to-r from-sky-600 to-cyan-500 text-white font-semibold rounded-xl shadow-md hover:shadow-lg hover:shadow-sky-500/20 transition-all duration-300 hover:-translate-y-0.5 disabled:opacity-60"
-                            >
+                            <button type="submit" disabled={loading}
+                                className="w-full sm:w-auto px-8 py-3 bg-gradient-to-r from-[#C49A3C] to-[#D4A84B] text-white font-bold rounded-xl shadow-lg shadow-[#C49A3C]/20 hover:shadow-xl hover:shadow-[#C49A3C]/30 hover:scale-105 transition-all duration-300 disabled:opacity-60">
                                 {loading ? "Yükleniyor..." : "Ürünü Kaydet"}
                             </button>
                         </div>

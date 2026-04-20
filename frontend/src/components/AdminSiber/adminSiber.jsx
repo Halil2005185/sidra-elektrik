@@ -46,54 +46,53 @@ function AdminSiber() {
     ];
 
     return (
-        <aside className="w-full md:w-64 h-auto md:min-h-screen bg-gradient-to-b from-slate-900 to-slate-950 flex flex-col shadow-2xl flex-shrink-0">
-            <div className="p-5 border-b border-white/5">
+        <aside className="w-full md:w-64 h-auto md:min-h-screen bg-gradient-to-b from-[#3B2F1E] to-[#2A2015] flex flex-col shadow-2xl flex-shrink-0 font-sans border-r border-[#C49A3C]/10">
+            <div className="p-5 border-b border-[#C49A3C]/10">
                 <div className="flex items-center gap-3">
-                    <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-sky-500 to-cyan-400 flex items-center justify-center shadow-lg shadow-sky-500/30">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-[#C49A3C] to-[#D4A84B] flex items-center justify-center shadow-lg shadow-[#C49A3C]/20 border border-[#EDE4D6]/20">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
                         </svg>
                     </div>
                     <div>
-                        <p className="text-sm font-bold text-white">Admin Panel</p>
-                        <p className="text-[10px] text-slate-400">Sidra Elektrik</p>
+                        <p className="text-[15px] font-bold text-white tracking-wide">Yönetim Paneli</p>
+                        <p className="text-[11px] text-[#A89880] tracking-widest font-medium uppercase">Sidra Elektrik</p>
                     </div>
                 </div>
             </div>
 
-            <nav className="flex-1 py-4 px-3 space-y-1">
-                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest px-3 mb-3">Yönetim</p>
+            <nav className="flex-1 py-6 px-3 space-y-1">
+                <p className="text-[10px] font-bold text-[#8C7B6B] uppercase tracking-[0.2em] px-3 mb-4">Menü</p>
                 {navItems.map((navItem) => (
                     <Link
                         to={navItem.href}
                         key={navItem.id}
-                        className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 group 
-                            ? "bg-gradient-to-r from-sky-500/20 to-cyan-500/10 text-sky-400 border border-sky-500/20 shadow-inner"
-                            : "text-slate-400 hover:text-white hover:bg-white/5"
+                        className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-semibold transition-all duration-300 group ${location.pathname === navItem.href
+                                ? "bg-gradient-to-r from-[#C49A3C]/20 to-transparent text-[#C49A3C] border-l-2 border-[#C49A3C]"
+                                : "text-[#A89880] hover:text-white hover:bg-white/5 border-l-2 border-transparent"
                             }`}
                     >
-                        <svg xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 flex-shrink-0 `} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
+                        <svg xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 flex-shrink-0 transition-colors duration-300 ${location.pathname === navItem.href ? "text-[#C49A3C]" : "text-[#A89880] group-hover:text-white"}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                             {navItem.icon}
                         </svg>
                         {navItem.label}
-                        <span className="ml-auto h-1.5 w-1.5 rounded-full bg-sky-400" />
+                        {location.pathname === navItem.href && <span className="ml-auto h-1.5 w-1.5 rounded-full bg-[#C49A3C] shadow-[0_0_8px_rgba(196,154,60,0.8)] animate-pulse" />}
                     </Link>
                 ))}
             </nav>
 
-            {/* Back to site */}
-            <div className="p-4 border-t border-white/5">
+            <div className="p-4 border-t border-[#C49A3C]/10 bg-black/10">
                 <Link
                     to="/"
-                    className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all duration-200 text-sm"
+                    className="flex items-center gap-3 px-4 py-3 rounded-xl text-[#A89880] hover:text-white hover:bg-[#C49A3C] transition-all duration-300 text-sm font-semibold group border border-transparent hover:border-[#C49A3C]/50 hover:shadow-lg hover:shadow-[#C49A3C]/20"
                 >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
                     </svg>
                     Siteye Dön
                 </Link>
             </div>
-        </aside >
+        </aside>
     );
 }
 

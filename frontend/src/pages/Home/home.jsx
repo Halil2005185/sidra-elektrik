@@ -36,29 +36,29 @@ function Home() {
     const d = new Date()
     let year = d.getFullYear();
     const categoryCards = [
-        { label: "Avizeler", href: "/chandeliers", color: "from-sky-600 to-sky-800", emoji: "🕯️" },
-        { label: "Lambalar", href: "/lamps", color: "from-cyan-500 to-cyan-700", emoji: "💡" },
-        { label: "Spot & LED", href: "/spotlights-led", color: "from-sky-400 to-cyan-600", emoji: "⚡" },
-        { label: "Dekoratif", href: "/decorative", color: "from-sky-500 to-sky-700", emoji: "✨" },
-        { label: "Aksesuarlar", href: "/accessory", color: "from-cyan-600 to-sky-800", emoji: "🔧" },
+        { label: "Avizeler", href: "/chandeliers", emoji: "🕯️" },
+        { label: "Lambalar", href: "/lamps", emoji: "💡" },
+        { label: "Spot & LED", href: "/spotlights-led", emoji: "⚡" },
+        { label: "Dekoratif", href: "/decorative", emoji: "✨" },
+        { label: "Aksesuarlar", href: "/accessory", emoji: "🔧" },
     ];
 
     return (
         <main className="font-sans">
 
             {/* ── Hero ── */}
-            <section className="relative bg-gradient-to-br from-slate-900 via-sky-950 to-slate-900 overflow-hidden min-h-[520px] flex items-center">
+            <section className="relative bg-gradient-to-br from-[#3B2F1E] via-[#4A3A28] to-[#3B2F1E] overflow-hidden min-h-[520px] flex items-center">
                 {/* Background decorative circles */}
                 <div className="absolute inset-0 pointer-events-none">
-                    <div className="absolute -bottom-24 -left-24 h-[360px] w-[360px] rounded-full bg-cyan-500/10 blur-3xl" />
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-sky-600/5 blur-3xl" />
+                    <div className="absolute -bottom-24 -left-24 h-[360px] w-[360px] rounded-full bg-[#C49A3C]/10 blur-3xl" />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-[#C49A3C]/5 blur-3xl" />
                 </div>
 
                 {/* Dot grid overlay */}
                 <div
-                    className="absolute inset-0 opacity-10"
+                    className="absolute inset-0 opacity-[0.04]"
                     style={{
-                        backgroundImage: "radial-gradient(circle, #7dd3fc 1px, transparent 1px)",
+                        backgroundImage: "radial-gradient(circle, #C49A3C 1px, transparent 1px)",
                         backgroundSize: "32px 32px",
                     }}
                 />
@@ -66,29 +66,29 @@ function Home() {
                 <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 flex flex-col lg:flex-row items-center gap-12">
                     {/* Text */}
                     <div className="flex-1 text-center lg:text-left">
-                        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-sky-500/15 border border-sky-500/20 rounded-full mb-6">
-                            <span className="h-2 w-2 rounded-full bg-sky-400 animate-pulse" />
-                            <span className="text-xs font-semibold text-sky-300 tracking-wider uppercase">
+                        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#C49A3C]/15 border border-[#C49A3C]/25 rounded-full mb-6">
+                            <span className="h-2 w-2 rounded-full bg-[#C49A3C] animate-pulse" />
+                            <span className="text-xs font-semibold text-[#D4C5A9] tracking-wider uppercase">
                                 Yeni Koleksiyon {year}
                             </span>
                         </div>
 
                         <h1 className="text-4xl md:text-5xl xl:text-6xl font-extrabold text-white leading-tight mb-5">
                             Evinizi{" "}
-                            <span className="bg-gradient-to-r from-sky-400 to-cyan-300 bg-clip-text text-transparent">
+                            <span className="bg-gradient-to-r from-[#C49A3C] to-[#E8D5A3] bg-clip-text text-transparent">
                                 Işıkla
                             </span>{" "}
                             Buluşturun
                         </h1>
 
-                        <p className="text-slate-400 text-base md:text-lg max-w-xl mx-auto lg:mx-0 mb-8 leading-relaxed">
+                        <p className="text-[#A89880] text-base md:text-lg max-w-xl mx-auto lg:mx-0 mb-8 leading-relaxed">
                             Avizeden LED'e, dekoratif aydınlatmadan spot sistemlerine kadar yüzlerce ürün. Kalite ve şıklık bir arada.
                         </p>
 
                         <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
                             <Link
                                 to="/chandeliers"
-                                className="group relative inline-flex items-center gap-2.5 px-7 py-3.5 bg-gradient-to-r from-sky-500 to-cyan-400 text-white font-bold rounded-full shadow-xl shadow-sky-500/30 hover:shadow-sky-500/50 hover:scale-105 transition-all duration-300 overflow-hidden"
+                                className="group relative inline-flex items-center gap-2.5 px-7 py-3.5 bg-gradient-to-r from-[#C49A3C] to-[#D4A84B] text-white font-bold rounded-full shadow-xl shadow-[#C49A3C]/30 hover:shadow-[#C49A3C]/50 hover:scale-105 transition-all duration-300 overflow-hidden"
                             >
                                 <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                                 <span className="relative">Ürünleri Keşfet</span>
@@ -112,8 +112,8 @@ function Home() {
                                 { value: "25 yıl", label: "Deneyim" },
                             ].map(({ value, label }) => (
                                 <div key={label} className="text-center lg:text-left">
-                                    <p className="text-2xl font-extrabold bg-gradient-to-r from-sky-400 to-cyan-300 bg-clip-text text-transparent">{value}</p>
-                                    <p className="text-xs text-slate-400 mt-0.5">{label}</p>
+                                    <p className="text-2xl font-extrabold bg-gradient-to-r from-[#C49A3C] to-[#E8D5A3] bg-clip-text text-transparent">{value}</p>
+                                    <p className="text-xs text-[#A89880] mt-0.5">{label}</p>
                                 </div>
                             ))}
                         </div>
@@ -122,8 +122,8 @@ function Home() {
                     {/* Hero visual */}
                     <div className="flex-1 lg:flex hidden justify-center">
                         <div className="relative">
-                            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-sky-500/30 to-cyan-400/10 blur-2xl scale-110" />
-                            <div className="relative h-64 w-64 xl:h-80 xl:w-80 rounded-full bg-gradient-to-br from-sky-800/60 to-sky-900/80 border border-sky-500/20 flex items-center justify-center shadow-2xl shadow-sky-500/20">
+                            <div className="absolute inset-0 rounded-full bg-[#C49A3C]/15 blur-2xl scale-110" />
+                            <div className="relative h-64 w-64 xl:h-80 xl:w-80 rounded-full bg-gradient-to-br from-[#4A3A28] to-[#3B2F1E] border border-[#C49A3C]/20 flex items-center justify-center shadow-2xl shadow-[#C49A3C]/15">
                                 <span className="text-[120px] xl:text-[160px] leading-none select-none drop-shadow-2xl">🕯️</span>
                             </div>
                         </div>
@@ -132,18 +132,18 @@ function Home() {
             </section>
 
             {/* ── Feature strip ── */}
-            <section className="bg-white border-b border-slate-100 shadow-sm">
+            <section className="bg-white border-b border-[#EDE4D6] shadow-sm">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 grid grid-cols-2 lg:grid-cols-4 gap-6">
                     {features.map(({ icon, title, desc }) => (
                         <div key={title} className="flex items-start gap-4 group">
-                            <div className="flex-shrink-0 h-11 w-11 rounded-xl bg-gradient-to-br from-sky-50 to-cyan-50 border border-sky-100 flex items-center justify-center group-hover:scale-110 group-hover:shadow-md group-hover:shadow-sky-100 transition-all duration-300">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
+                            <div className="flex-shrink-0 h-11 w-11 rounded-xl bg-gradient-to-br from-[#FFF8EE] to-[#FFFBF5] border border-[#EDE4D6] flex items-center justify-center group-hover:scale-110 group-hover:shadow-md group-hover:shadow-[#C49A3C]/10 transition-all duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#C49A3C]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
                                     {icon}
                                 </svg>
                             </div>
                             <div>
-                                <p className="text-sm font-bold text-slate-800">{title}</p>
-                                <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">{desc}</p>
+                                <p className="text-sm font-bold text-[#2D2418]">{title}</p>
+                                <p className="text-xs text-[#8C7B6B] mt-0.5 leading-relaxed">{desc}</p>
                             </div>
                         </div>
                     ))}
@@ -151,25 +151,25 @@ function Home() {
             </section>
 
             {/* ── Category cards ── */}
-            <section className="py-16 bg-gradient-to-b from-slate-50 to-white">
+            <section className="py-16 bg-gradient-to-b from-[#FFFBF5] to-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-10">
-                        <h2 className="text-2xl md:text-3xl font-bold text-slate-800">
+                        <h2 className="text-2xl md:text-3xl font-bold text-[#2D2418]">
                             Kategorilere{" "}
-                            <span className="bg-gradient-to-r from-sky-600 to-cyan-500 bg-clip-text text-transparent">Göz Atın</span>
+                            <span className="bg-gradient-to-r from-[#C49A3C] to-[#D4A84B] bg-clip-text text-transparent">Göz Atın</span>
                         </h2>
-                        <p className="text-slate-500 text-sm mt-2">İhtiyacınıza göre aydınlatma kategorisini seçin</p>
+                        <p className="text-[#8C7B6B] text-sm mt-2">İhtiyacınıza göre aydınlatma kategorisini seçin</p>
                     </div>
                     <div className="flex flex-wrap justify-center gap-4">
-                        {categoryCards.map(({ label, href, color, emoji }) => (
+                        {categoryCards.map(({ label, href, emoji }) => (
                             <Link
                                 key={label}
                                 to={href}
-                                className={`group relative flex flex-col items-center justify-center gap-3 h-36 w-44 rounded-2xl bg-gradient-to-br ${color} text-white shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 overflow-hidden`}
+                                className="group relative flex flex-col items-center justify-center gap-3 h-36 w-44 rounded-2xl bg-gradient-to-br from-[#3B2F1E] to-[#4A3A28] text-white shadow-lg hover:shadow-2xl hover:shadow-[#C49A3C]/15 hover:scale-105 transition-all duration-300 overflow-hidden border border-[#C49A3C]/10"
                             >
-                                <span className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
+                                <span className="absolute inset-0 bg-[#C49A3C]/0 group-hover:bg-[#C49A3C]/10 transition-colors duration-300" />
                                 <span className="text-4xl drop-shadow-lg">{emoji}</span>
-                                <span className="relative text-sm font-bold tracking-wide">{label}</span>
+                                <span className="relative text-sm font-bold tracking-wide text-[#D4C5A9] group-hover:text-white">{label}</span>
                             </Link>
                         ))}
                     </div>
